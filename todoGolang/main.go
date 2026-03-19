@@ -16,15 +16,17 @@ var (
 func handleDelete(ctx *gin.Context) {
 	postId := ctx.Param("id")
 
-	id, err := strconv.Atoi(postId)
+	_ , err := strconv.Atoi(postId)
 	if err != nil {
 		ctx.JSON(http.StatusForbidden, map[string]any{
 			"message": "Invalid postId",
 		})
 		return
 	}
+	c := ctx.Request.Body
+	fmt.Println(c)
 
-	response, err := todoList.HandleDelete(id)
+	response, err := todoList.HandleDelete(ctx.Request.Context())
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, map[string]any{
 			"message": err,
@@ -46,6 +48,9 @@ func main() {
 
 	// POST request to add a new todo list to the existing list
 	router.POST("/add", func(ctx *gin.Context) {
+		c := ctx.Request.Context().Value("title")
+		fmt.Println(c)
+
 		var req handler.Request
 		if err := ctx.BindJSON(&req); err != nil {
 			ctx.JSON(http.StatusBadRequest, map[string]any{

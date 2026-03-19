@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -65,7 +66,10 @@ func(t *Todos) HandleUpdate(req Request,id int) (Response, error){
 	return updatedResponse, nil
 }
 
-func(t *Todos) HandleDelete(id int) (Response, error){
+func(t *Todos) HandleDelete(ctx context.Context) (Response, error){
+	fmt.Print(ctx.Value("id"))
+	return Response{}, nil
+	id := 10
 	res, ok := t.TodoList[id]
 	if !ok{
 		fmt.Println("Id not found")

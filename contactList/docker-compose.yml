@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    environment:  
+      POSTGRES_PASSWORD : harish
+      POSTGRES_USER : anjana
+      POSTGRES_DB : moss
+
+networks:
+  app-network:
+    driver: bridge   
