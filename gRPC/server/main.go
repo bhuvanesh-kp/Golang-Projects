@@ -10,7 +10,7 @@ import (
 )
 
 type server struct {
-	ping pb.UnimplementedPingPongServiceServer
+	pb.UnimplementedPingPongServiceServer
 }
 
 func (s *server) SendPing(ctx context.Context, req *pb.PingRequest) (*pb.PongResponse, error) {
@@ -26,8 +26,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	var NewServer server
-	pb.RegisterPingPongServiceServer(s, &NewServer.ping)
+	pb.RegisterPingPongServiceServer(s, &server{})
 
 	log.Println("Server listening to port: 5001")
 	if err := s.Serve(lis); err != nil {
