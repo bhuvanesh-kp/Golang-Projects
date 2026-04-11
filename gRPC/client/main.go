@@ -20,10 +20,10 @@ func main() {
 	defer conn.Close()
 
 	c := pb.NewPingPongServiceClient(conn)
-	ctx, cancel := context.WithTimeout(context.Background(),3 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(),3 *	 time.Second)
 	defer cancel()
 
-	r, err := c.SendPing(ctx, &pb.PingRequest{Message: "Ping_to_Server"})
+	r, err := c.Sending(ctx, &pb.PingRequest{Message: "Ping_to_Server"})
 	if err != nil {
 		log.Println("could not ping: ", err)
 		return

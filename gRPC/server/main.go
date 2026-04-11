@@ -13,7 +13,7 @@ type server struct {
 	pb.UnimplementedPingPongServiceServer
 }
 
-func (s *server) SendPing(ctx context.Context, req *pb.PingRequest) (*pb.PongResponse, error) {
+func (s *server) Sending(ctx context.Context, req *pb.PingRequest) (*pb.PongResponse, error) {
 	log.Println("Received message: ", req.GetMessage())
 	return &pb.PongResponse{Message: "Pong!"}, nil
 }
